@@ -1,3 +1,15 @@
+def get_sign(hex_num, width):
+    # Convert hex to integer
+    num = hex_num
+
+    # Check MSB (sign bit)
+    sign_bit = (num >> (width - 1)) & 1  # Extract the MSB
+    if sign_bit == 0:
+        return "Positive"
+    else:
+        return "Negative"
+
+
 def calculate_flags(result, num1, num2, width):
     # Mask result to fit the width (4-bit, 8-bit, or 16-bit)
     result &= (1 << width) - 1
@@ -18,7 +30,9 @@ def calculate_flags(result, num1, num2, width):
 
     # Overflow flag (O): Set if there was an overflow, i.e., if the sign bit was incorrect.
     overflow = 0
-    if ((result < 0 and sign == 0) or (result >= (1 << (width - 1)) and sign == 1)):
+    #if ((result < 0 and sign == 0) or (result >= (1 << (width - 1)) and sign == 1)):
+    #    overflow = 1
+    if (get_sign(num1, width) == "Positive" and get_sign(num2, width) == "Negative" and sign == 1) or (get_sign(num1, width) == "Negative" and get_sign(num2, width) == "Positive" and sign == 0):
         overflow = 1
 
     # Parity flag (P): Set if the number of set bits is even.
@@ -50,8 +64,8 @@ def subtract_hex(hex1, hex2, width):
 
 
 # Example Usage:
-hex1 = "50"  # Example hex value 1
-hex2 = "A7"  # Example hex value 2
+hex1 = "A3"  # Example hex value 1
+hex2 = "62"  # Example hex value 2
 
 # Perform subtraction and calculate flags for 4-bit, 8-bit, and 16-bit widths
 #for width in [4, 8, 16]:

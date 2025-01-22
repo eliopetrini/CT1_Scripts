@@ -25,7 +25,6 @@ def hex_to_decimal(hex_value, signed: bool = True) -> int:
 
 
 
-print(hex_to_decimal("0xF6", signed=False))
-#print(hex_to_decimal("0x7FA2", signed=False))
+print(hex_to_decimal("0xFFA2", signed=False))
+print(hex_to_decimal("0x7FA2", signed=False))
 
-11110110
